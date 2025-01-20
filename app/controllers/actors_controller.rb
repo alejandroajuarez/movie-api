@@ -1,6 +1,6 @@
 class ActorsController < ApplicationController
   def index
-    actor = Actor.all
+    @actors = Actor.all
     render :index
   end
 
