@@ -8,4 +8,12 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-p 
+10.times do
+  Actor.create!(
+    first_name: FFaker::Name.first_name,
+    last_name: FFaker::Name.last_name,
+    known_for: FFaker::Movie.title
+  )
+end
+
+puts "Seeded 10 actors"
