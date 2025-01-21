@@ -31,6 +31,6 @@ class ActorsController < ApplicationController
   def destroy
     actor = Actor.find_by(id: params[:id])
     actor.destroy
-    redner json: { message: "You have deleted this actor field!" }
+    render json: { message: "You have deleted this actor field!" }
   end
 end
