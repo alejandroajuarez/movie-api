@@ -32,10 +32,10 @@ class ActorsController < ApplicationController
     @actor = Actor.find_by(id: params[:id])
     if @actor
       @actor.update(
-        first_name: params[:first_name] ||  actor.first_name,
-        last_name:  params[:last_name]  ||  actor.last_name,
-        known_for:  params[:known_for]  ||  actor.known_for,
-        movie_id:   params[:movie_id]   ||  actor.movie_id
+        first_name: params[:first_name] ||  @actor.first_name,
+        last_name:  params[:last_name]  ||  @actor.last_name,
+        known_for:  params[:known_for]  ||  @actor.known_for,
+        movie_id:   params[:movie_id]   ||  @actor.movie_id
       )
       render json: @actor, include: { movie: { only: [:title, :year, :plot, :image_url] } }
     else
@@ -44,9 +44,13 @@ class ActorsController < ApplicationController
   end
 
   def destroy
-    actor = Actor.find_by(id: params[:id])
-    actor.destroy
-    actor.destroy
-    render json: { message: "You have deleted this actor!" }
+    @actor = Actor.find_by(id: params[:id])
+    if @actor
+      @actor.destroy
+      render json: { message: "Actor deleted successfully" }
+    else
+      render json: { error: "Actor not found" }, status: :not_found
+    end
   end
+  
 end
