@@ -1,4 +1,5 @@
 class ActorsController < ApplicationController
+  # before_action :authenticate_user!, only: [:create]
   def index
     @actors = Actor.includes(:movie) 
     render json: @actors, include: { movie: { only: [:title, :year, :plot, :image_url] } }
@@ -15,10 +16,11 @@ class ActorsController < ApplicationController
 
   def create
     @actor = Actor.new(
-      first_name: params[:input_fname],
-      last_name:  params[:input_lname],
-      known_for:  params[:input_known_for],
-      movie_id:   params[:movie_id]
+      first_name: params[:first_name],
+      last_name:  params[:last_name],
+      known_for:  params[:known_for],
+      movie_id:   params[:movie_id],
+      # user_id: current_user.id
     )
 
     if @actor.save
